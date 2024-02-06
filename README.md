@@ -1,1 +1,3 @@
-# audio-ai-with-assemblyai-course
+# Audio AI with AssemblyAI Course
+
+![](./readme_resources/assemblyai-course.jpg)
