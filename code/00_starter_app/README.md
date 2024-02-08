@@ -42,7 +42,7 @@ docker run -d --rm -p 127.0.0.1:27017:27017 -v mongodata:/data/db --name mongosv
 If you're new to Docker, here is what this somewhat obtuse command means. Don't worry, you won't need to decipher it. Just run it before you try to launch the app in your editor.
 
 * `-d` means daemon mode, run unattended in the background as a service
-* `--rm` delete all data and evidence of the MongoDB container (not image) on stop. This does not include the separate data volumen named `mongodata` you crated in step 5.
+* `--rm` delete all data and evidence of the MongoDB container (not image) on stop. This does not include the separate data volume named `mongodata` you created in step 5.
 * `-p` Listen on localhost port 27017 and map all traffic into the container to its internal port 27017 (i.e. the mongod server)
 * `-v` Use the persitent volume named `mongodata` for all files and storage under the `/data/db` folder (MongoDB's database files).
 * `--name` Set a fixed name for the container rather than an auto generated on like `focal_cats`. This makes it easier to issue commands to it later if needed (such as stop).
