@@ -11,7 +11,7 @@ from db.episode import EpisodeLightProjection
 from db.podcast import Podcast
 from db.search_record import SearchRecord, SearchRecordLite
 from db.transcripts import EpisodeTranscript
-from services import podcast_service
+from services import podcast_service, ai_service
 
 indexing_startup = 30  # delay 30s
 indexing_frequency = 60 * 5  # every 5 minutes
@@ -147,8 +147,9 @@ async def build_index_for_podcast(podcast: Podcast):
         episode_text = (ep.title or '') + ' ' + desc + ' ' + ' '.join(ep.tags) + ' '
         episode_text += ' ' + base_text + ' '
 
-        # TODO: Get transcript data from ai service
-        transcript: Optional[EpisodeTranscript] = None
+        transcript: Optional[EpisodeTranscript] = await ai_service.full_transcript_for_episode(
+            podcast.id,
+            ep.episode_number)
 
         if transcript:
             transcript_text = ' '.join(w.text for w in transcript.words)
