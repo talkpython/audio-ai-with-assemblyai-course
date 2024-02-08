@@ -44,6 +44,6 @@ If you're new to Docker, here is what this somewhat obtuse command means. Don't 
 * `-d` means daemon mode, run unattended in the background as a service
 * `--rm` delete all data and evidence of the MongoDB container (not image) on stop. This does not include the separate data volume named `mongodata` you created in step 5.
 * `-p` Listen on localhost port 27017 and map all traffic into the container to its internal port 27017 (i.e. the mongod server)
-* `-v` Use the persitent volume named `mongodata` for all files and storage under the `/data/db` folder (MongoDB's database files).
+* `-v` Use the persistent volume named `mongodata` for all files and storage under the `/data/db` folder (MongoDB's database files).
 * `--name` Set a fixed name for the container rather than an auto generated on like `focal_cats`. This makes it easier to issue commands to it later if needed (such as stop).
 * `mongo` (at the end) is the name of the image to base the running container off. This comes from our *docker pull **mongo*** command in step 4.

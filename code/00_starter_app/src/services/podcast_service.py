@@ -95,8 +95,8 @@ async def follow_podcast(podcast_id: str, user_id: bson.ObjectId):
     if not podcast:
         raise Exception(f'No podcast with ID {podcast_id}.')
 
-    user.podcasts.append(podcast.id)
-    user.podcasts = sorted(list(set(user.podcasts)))
+    user = await user_service.find_user_by_id(user_id)
+    user.podcasts.extend(podcast.id)
     await user.save()
 
 

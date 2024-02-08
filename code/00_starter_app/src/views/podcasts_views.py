@@ -57,7 +57,6 @@ async def index_post(request: Request):
         return webutils.redirect_to(f'/podcasts/details/{podcast.id}')
     except Exception as x:
         vm.error = f'Error parsing {vm.podcast_url}: {x}'
-        # raise
         return vm.to_dict()
 
 
