@@ -1,0 +1,81 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+        <div class="mx-auto max-w-fit ">
+            <div class="inline-block align-middle">
+                <a href="/podcasts/details/${podcast.id}"
+                ><img
+                        style="width: 250px; border-radius: 10px;"
+                        class="border-solid border"
+                        src="${podcast.image}" alt=""></a>
+            </div>
+
+            <div class="inline-block align-middle">
+
+                <div class="pl-2">
+                    <h1 class="pt-2"><a href="/podcasts/details/${podcast.id}">${podcast.title}</a></h1>
+                    <div class="text-gray-700">${podcast.subtitle}</div>
+                    <h2 class="uppercase pt-4"
+                    >Episode: ${episode.title}</h2>
+
+                    <div class="text-xl text-black ml-1">
+                        <a href="${episode.episode_url}"
+                           title="Visit episode page"
+                           class="mr-2 text-black"
+                           target="_blank"
+                           tal:condition="episode.episode_url"
+                        ><i class="fa-duotone fa-browser"></i></a>
+                        <a href="${episode.enclosure_url}"
+                           title="Download audio file"
+                           class="text-black"
+                           target="_blank"
+                           tal:condition="episode.enclosure_url"
+                        ><i class="fa-duotone fa-download"></i></a><br>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clear-both text-xs">&nbsp;</div>
+        </div>
+
+        <div>
+            <div class="text-center">
+                <audio class="w-fit mx-auto" src="${episode.enclosure_url}" controls style="width: 90%"></audio>
+            </div>
+            <br>
+            <div class="episode-actions" hx-swap="outerHTML">
+                <strong>TODO: Episode action buttons</strong>
+            </div>
+            <br>
+        </div>
+
+        <div tal:condition="ai_summary"
+             class="ai_summary border-2 border-green-300 m-1 mb-4 p-3 bg-green-100 rounded-2xl">
+            <h2>AssemblyAI Summary</h2>
+
+            <div class="leading-relaxed mr-16">
+                ${structure:summary_to_html()}
+            </div>
+        </div>
+
+        <div class="border-2 border-gray-300 m-1 p-3 bg-gray-100 rounded-2xl">
+            <h2><span tal:condition="ai_summary">Original </span>Show Notes</h2>
+            <div tal:define="text (episode.summary or episode.description or '')">
+                <div tal:condition="text">
+                    <div tal:condition="'<' in text and '>' in text">
+                        ${structure: text}
+                    </div>
+                    <div tal:condition="not('<' in text and '>' in text)">
+                        <pre class="not-code">${text}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 1rem;">&nbsp;</div>
+
+    </div>
+</div>
