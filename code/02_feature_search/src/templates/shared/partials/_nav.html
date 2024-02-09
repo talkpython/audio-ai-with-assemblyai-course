@@ -1,0 +1,39 @@
+<nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <a href="/">
+                        <img class="h-12 w-auto "
+                             style="border: 1px solid #888; border-radius: 5px;"
+                             src="/static/img/logo/logo-200.png?v=${viewmodel.cache_id('/static/img/logo/logo-200.png')}"
+                             alt="x-ray podcasts">
+                    </a>
+                </div>
+                <div class="hidden sm:ml-6 sm:block">
+                    <div class="flex space-x-4">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a href="/podcasts/followed"
+                           class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white ${'bg-gray-900 text-white' if viewmodel.request.url.path == '/podcasts/followed' else 'text-gray-300'}"
+                        >Followed</a>
+                        <a href="/podcasts"
+                           class="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white ${'bg-gray-900 text-white' if viewmodel.request.url.path == '/podcasts' else 'text-gray-300'}"
+                        >Discover</a>
+                        <!--            Active menu:  bg-gray-900 text-white-->
+                        <a href="/search"
+                           class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Search</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <a href="/account/register" tal:condition="not viewmodel.user_id" class="text-2xl"
+                ><i class="fa-solid fa-right-to-bracket text-white" title="Register or sign-in"></i></a>
+                <a href="/account/logout" tal:condition="viewmodel.user_id" class="text-2xl "
+                ><i class="fa-regular fa-user text-white" title="Click to log out of your account."></i></a>
+
+            </div>
+        </div>
+    </div>
+</nav>

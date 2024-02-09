@@ -1,0 +1,71 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+
+        <div class="mx-auto max-w-fit ">
+            <div class="inline-block align-middle">
+                <a href="/podcasts/details/${podcast.id}"
+                ><img
+                        style="width: 250px; border-radius: 10px;"
+                        class="border-solid border"
+                        src="${podcast.image}" alt=""></a>
+            </div>
+
+            <div class="inline-block align-middle">
+
+                <div class="pl-2">
+                    <h1 class="pt-2">${podcast.title}</h1>
+                    <div class="text-gray-700">${podcast.subtitle}</div>
+
+                    <div class="text-xl text-black ml-1">
+                        <a href="${podcast.website_url}"
+                           title="Visit podcast website"
+                           class="mr-2 text-black"
+                           target="_blank"
+                           tal:condition="podcast"
+                        ><i class="fa-duotone fa-browser"></i></a>
+
+                        <a href="/admin/refresh-podcast/${podcast.id}"
+                           tal:condition="podcast"
+                           class="mr-2 text-black" title="Refresh / reimport podcast into app"
+                        ><i class="fa-solid fa-arrows-rotate"></i></a>
+                        <br>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clear-both text-xs">&nbsp;</div>
+        </div>
+
+
+        <div class="mx-auto max-w-fit ">
+            <div class="inline-block align-middle">
+                <div id="episodes">
+
+                    <h2>Episodes</h2>
+
+                    <div hx-target="this" >
+                        ${render_partial("podcasts/partials/episodes-in-podcast.html", episodes=episodes[:10],
+                        podcast=podcast, shorten_text=shorten_text)}
+
+                        <div tal:condition="len(episodes) > 10" class="text-gray-800 text-xs text-center mt-2">
+                            ${"{:,}".format(len(episodes)-10)} more episodes,
+                            <a href="#more"
+                               hx-trigger="click"
+                               hx-get="/podcasts/hx-episodes/${podcast.id}">click to load</a> ...
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="pb-20">&nbsp;</div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
