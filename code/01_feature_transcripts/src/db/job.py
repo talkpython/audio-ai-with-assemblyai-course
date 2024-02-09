@@ -34,7 +34,6 @@ class BackgroundJob(beanie.Document):
     class Settings:
         name = 'jobs'
         indexes = [
-            # pymongo.IndexModel(keys=[('created_date', pymongo.ASCENDING)], name='created_date_ascend'),
             pymongo.IndexModel(keys=[('is_finished', pymongo.ASCENDING)], name='finished_ascend'),
             pymongo.IndexModel(keys=[('processing_status', pymongo.ASCENDING)], name='status_ascend'),
             pymongo.IndexModel(

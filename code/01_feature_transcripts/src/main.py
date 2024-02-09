@@ -10,7 +10,7 @@ from starlette.staticfiles import StaticFiles
 from db import mongo_setup
 from infrastructure import cache_buster, app_setup, app_secrets
 from viewmodels.shared.viewmodel_base import ViewModelBase
-from views import account_views
+from views import account_views, ai_views
 from views import home_views
 from views import podcasts_views
 
@@ -20,7 +20,11 @@ development_mode = True
 mongo_setup.development_mode = development_mode
 app_setup.development_mode = development_mode
 
-app = fastapi.FastAPI(docs_url=None, redoc_url=None, debug=development_mode, lifespan=app_setup.app_lifespan)
+app = fastapi.FastAPI(docs_url=None,
+                      redoc_url=None,
+                      debug=development_mode,
+                      lifespan=app_setup.app_lifespan
+                      )
 
 
 # #######################################################################
@@ -56,6 +60,7 @@ def configure_routing():
     app.include_router(home_views.router)
     app.include_router(account_views.router)
     app.include_router(podcasts_views.router)
+    app.include_router(ai_views.router)
 
 
 def configure_templating():

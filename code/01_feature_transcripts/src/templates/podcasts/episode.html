@@ -23,13 +23,13 @@
                            title="Visit episode page"
                            class="mr-2 text-black"
                            target="_blank"
-                           tal:condition="episode.episode_url"
+                                 tal:condition="episode.episode_url"
                         ><i class="fa-duotone fa-browser"></i></a>
                         <a href="${episode.enclosure_url}"
                            title="Download audio file"
                            class="text-black"
                            target="_blank"
-                           tal:condition="episode.enclosure_url"
+                                 tal:condition="episode.enclosure_url"
                         ><i class="fa-duotone fa-download"></i></a><br>
 
 
@@ -46,18 +46,31 @@
                 <audio class="w-fit mx-auto" src="${episode.enclosure_url}" controls style="width: 90%"></audio>
             </div>
             <br>
-            <div class="episode-actions" hx-swap="outerHTML">
-                <strong>TODO: Episode action buttons</strong>
+            <div class="episode-actions" hx-target="this" hx-swap="outerHTML">
+                <a class="button-indigo rounded-button"
+                   hx-get="/ai/start/transcribe/${podcast.id}/episode/${episode.episode_number}"
+                   hx-trigger="click"
+                   href="#transcribe"
+                        tal:condition="not transcript_url"
+                >Create transcript</a>
+
+                <a class="button-green rounded-button" href="${transcript_url}" tal:condition="transcript_url"
+                >View transcript</a>
+
+                <a class="button-indigo rounded-button" href="#summarize" tal:condition="not summary_url"
+                >Create summary</a>
+                <a class="button-indigo rounded-button" href="#chat"
+                >Enable AI Q&A <i class="fa-solid fa-robot"></i></a><br>
             </div>
             <br>
         </div>
 
         <div tal:condition="ai_summary"
-             class="ai_summary border-2 border-green-300 m-1 mb-4 p-3 bg-green-100 rounded-2xl">
+                class="ai_summary border-2 border-green-300 m-1 mb-4 p-3 bg-green-100 rounded-2xl">
             <h2>AssemblyAI Summary</h2>
 
             <div class="leading-relaxed mr-16">
-                ${structure:summary_to_html()}
+                    ${structure:summary_to_html()}
             </div>
         </div>
 
@@ -66,7 +79,7 @@
             <div tal:define="text (episode.summary or episode.description or '')">
                 <div tal:condition="text">
                     <div tal:condition="'<' in text and '>' in text">
-                        ${structure: text}
+                            ${structure: text}
                     </div>
                     <div tal:condition="not('<' in text and '>' in text)">
                         <pre class="not-code">${text}</pre>
