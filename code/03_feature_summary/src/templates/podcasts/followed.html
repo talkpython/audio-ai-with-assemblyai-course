@@ -1,0 +1,43 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+        <div class="mt-10">
+
+
+            <div class="mx-auto max-w-lg">
+                <div>
+                    <div class="text-center">
+                        <i class="fa-duotone fa-podcast text-4xl"></i>
+                        <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Followed podcasts</h2>
+                        <p class="mt-1 text-sm text-gray-500">
+                            X-ray Podcasts works best when you follow podcasts, summarize their episodes,
+                            and chat with their conversations.
+                            <a href="/podcasts">Add more podcasts</a> to your account.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="mt-10">
+                    <ul role="list" class="mt-4 divide-y divide-gray-200 border-b border-t border-gray-200">
+                        <li class="flex items-center justify-between space-x-3 py-4"
+                            tal:repeat="podcast viewmodel.user_podcasts"
+                        >
+                            ${render_partial('podcasts/partials/podcast_in_list.html',
+                            viewmodel=viewmodel, followable=False,
+                            category=podcast.category,
+                            poster_image=podcast.cached_image_url,
+                            title=podcast.title,
+                            podcast_id=podcast.id)}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="pb-10">&nbsp;</div>
+        </div>
+
+    </div>
+</div>
+

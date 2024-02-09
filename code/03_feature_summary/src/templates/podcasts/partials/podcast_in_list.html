@@ -1,0 +1,30 @@
+<div class="flex min-w-0 flex-1 items-center space-x-3">
+    <div class="flex-shrink-0">
+        <a href="/podcasts/details/${podcast_id}">
+            <img class="h-20 w-auto rounded-md "
+                 style="border: 1px solid lightslategray;"
+                 src="${poster_image}" alt="">
+        </a>
+    </div>
+    <div class="min-w-0 flex-1">
+        <a href="/podcasts/details/${podcast_id}">
+            <p class="truncate text-sm font-medium text-gray-900">${title}</p>
+        </a>
+        <a href="/podcasts/details/${podcast_id}">
+            <p class="truncate text-sm font-medium text-gray-500">${category}</p>
+        </a>
+    </div>
+</div>
+<div tal:condition="viewmodel.user">
+    <div class="flex-shrink-0" tal:condition="followable and podcast_id in viewmodel.user.podcasts">
+        ${render_partial('podcasts/partials/followed_podcast_button.html', podcast_id=podcast_id)}
+    </div>
+    <div class="flex-shrink-0" tal:condition="followable and podcast_id not in viewmodel.user.podcasts">
+        ${render_partial('podcasts/partials/follow_podcast_button.html', podcast_id=podcast_id)}
+    </div>
+</div>
+<div class="flex-shrink-0" tal:condition="not followable">
+    <a href="/podcasts/details/${podcast_id}" class="text-sm rounded-button button-green font-bold">
+        Explore
+    </a>
+</div>

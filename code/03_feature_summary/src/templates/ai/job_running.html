@@ -1,0 +1,12 @@
+<div
+        hx-swap="outerHTML"
+        hx-target="this"
+        hx-get="/ai/check-status/${job_id}"
+        hx-trigger="every 3s"
+>
+    <img
+            class="align-middle inline-block"
+            src="/static/img/dual-ball-busy-v2.gif" alt="">
+
+        ${job_name}, hang tight ...
+</div>

@@ -1,0 +1,12 @@
+<div tal:repeat="e episodes">
+    <div><span style="display: inline-block; min-width: 80px; font-size: 10px;"
+               tal:condition="e.published_date">
+                    ${e.published_date.date().isoformat()}</span>
+        <a href="/podcasts/details/${podcast.id}/episode/${e.episode_number}"
+        ><span>${shorten_text(e.title, 48)}</span></a>
+    </div>
+    <div tal:condition="e.summary" style="font-size: 10px; color: grey;">
+        ${e.summary}
+    </div>
+
+</div>

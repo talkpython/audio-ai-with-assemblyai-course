@@ -1,0 +1,6 @@
+{
+  "mongo_host": "127.0.0.1",
+  "mongo_port": 27017,
+  "assemblyai_key": "ENTER YOUR API KEY HERE",
+  "ACTION": "COPY THIS FILE TO settings.json, fill out with your info"
+}
