@@ -13,6 +13,7 @@ from viewmodels.shared.viewmodel_base import ViewModelBase
 from views import account_views, ai_views
 from views import home_views
 from views import podcasts_views
+from views import search_views
 
 hot_reload = False
 
@@ -61,6 +62,7 @@ def configure_routing():
     app.include_router(account_views.router)
     app.include_router(podcasts_views.router)
     app.include_router(ai_views.router)
+    app.include_router(search_views.router)
 
 
 def configure_templating():
