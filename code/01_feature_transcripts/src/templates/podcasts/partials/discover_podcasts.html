@@ -1,0 +1,80 @@
+<div class="mx-auto max-w-lg">
+    <div>
+        <div class="text-center">
+            <i class="fa-duotone fa-podcast text-4xl"></i>
+            <div tal:condition="viewmodel.user and not viewmodel.user.podcasts" tal:omit-tag="True">
+                <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Follow some podcasts</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                    You haven’t added any podcasts to your account yet.
+                    X-ray Podcasts works best when you follow podcasts, summarize their episodes,
+                    and chat with their conversations. Get started here:
+                </p>
+            </div>
+            <div tal:condition="viewmodel.user and viewmodel.user.podcasts" tal:omit-tag="True">
+                <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Follow podcasts</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                    X-ray Podcasts works best when you follow podcasts, summarize their episodes,
+                    and chat with their conversations. Add more podcasts to your account.
+                </p>
+            </div>
+            <div tal:condition="not viewmodel.user" tal:omit-tag="True">
+                <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Follow podcasts</h2>
+                <p class="mt-1 text-sm text-gray-500">
+                    Create <a href="/account/register"  class="font-bold">a free account</a> or
+                    <a href="/account/sign-in" class="font-bold">sign in</a>
+                    to do more with podcasts and save your
+                    favorites to your account.
+                </p>
+            </div>
+
+        </div>
+        <form action="" method="POST" class="mt-6 flex">
+            <label for="podcast_url" class="sr-only">Podcast or RSS URL</label>
+            <input type="text" name="podcast_url" id="podcast_url"
+                   class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                   placeholder="Enter an podcast url or RSS feed url">
+            <button type="submit" class="rounded-button button-indigo">
+                Follow podcast
+            </button>
+        </form>
+        <p tal:condition="viewmodel.error" class="mt-10 text-center error-text">
+            ${viewmodel.error}
+        </p>
+    </div>
+
+
+    <div class="mt-10">
+        <h3 class="text-sm font-medium text-gray-500">Popular podcasts</h3>
+        <ul role="list" class="mt-4 divide-y divide-gray-200 border-b border-t border-gray-200">
+            <li class="flex items-center justify-between space-x-3 py-4">
+                ${render_partial('podcasts/partials/podcast_in_list.html',
+                viewmodel=viewmodel, followable=True,
+                category="Software Development",
+                poster_image="/podcasts/image/talk-python-to-me.webp",
+                title='Talk Python To Me',
+                podcast_id='talk-python-to-me')}
+            </li>
+            <li class="flex items-center justify-between space-x-3 py-4">
+                ${render_partial('podcasts/partials/podcast_in_list.html',
+                viewmodel=viewmodel, followable=True,
+                category="Cybersecurity",
+                poster_image="/podcasts/image/darknet-diaries.jpg",
+                title='Dark Net Diaries',
+                podcast_id='darknet-diaries')}
+
+            </li>
+            <li class="flex items-center justify-between space-x-3 py-4">
+
+                ${render_partial('podcasts/partials/podcast_in_list.html',
+                viewmodel=viewmodel, followable=True,
+                category="Software Development",
+                poster_image="/podcasts/image/python-bytes.webp",
+                title='Python Bytes',
+                podcast_id='python-bytes')}
+
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div style="clear: both;"></div>

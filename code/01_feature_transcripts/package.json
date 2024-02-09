@@ -1,0 +1,17 @@
+{
+  "name": "xray-podcasts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tailwindcss -i ./src/static/css/site.css -o ./src/static/release/css/site.css --watch",
+    "build": "tailwindcss build -i ./src/static/css/site.css -o ./src/static/release/css/site.css",
+    "build_min": "tailwindcss build -i ./src/static/css/site.css -o ./src/static/release/css/site.min.css --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.4",
+    "tailwindcss": "^3.3.3"
+  }
+}
