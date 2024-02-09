@@ -1,4 +1,3 @@
-import asyncio
 from typing import Optional
 
 import bson
@@ -65,7 +64,7 @@ async def latest_episode_for_podcast(podcast_id: str) -> Optional[Episode]:
 
 
 async def episodes_for_podcast_by_ids_light(
-    podcast: Podcast, episode_ids: list[bson.ObjectId]
+        podcast: Podcast, episode_ids: list[bson.ObjectId]
 ) -> list[EpisodeLightProjection]:
     return (
         await Episode.find(Episode.podcast_id == podcast.id, In(Episode.id, episode_ids))
@@ -76,7 +75,7 @@ async def episodes_for_podcast_by_ids_light(
 
 
 async def episodes_for_podcast_by_numbers_light(
-    podcast: Podcast, episode_numbers: list[int]
+        podcast: Podcast, episode_numbers: list[int]
 ) -> list[EpisodeLightProjection]:
     return (
         await Episode.find(Episode.podcast_id == podcast.id, In(Episode.episode_number, episode_numbers))
@@ -159,4 +158,3 @@ async def save_image_for_podcast(podcast_id: str) -> Optional[bytes]:
     await image.save()
 
     return image.content
-

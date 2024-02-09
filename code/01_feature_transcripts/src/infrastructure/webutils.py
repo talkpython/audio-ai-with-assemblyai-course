@@ -37,7 +37,7 @@ def return_not_found() -> Response:
 
 
 def html_response(
-    template_file: str, model: Optional[dict] = None, media_type: str = 'text/html', status_code: int = 200
+        template_file: str, model: Optional[dict] = None, media_type: str = 'text/html', status_code: int = 200
 ) -> Response:
     if model is None:
         model = {}

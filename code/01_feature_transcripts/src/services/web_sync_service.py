@@ -106,8 +106,8 @@ async def new_podcast_from_rss(channel: Element, url: str, etag: Optional[str]) 
     website_url = None
     if website_url_node is not None:
         website_url = (
-            website_url_node.text.strip().rstrip('/') if website_url_node is not None else ''
-        ).strip() or None
+                          website_url_node.text.strip().rstrip('/') if website_url_node is not None else ''
+                      ).strip() or None
 
     items = channel.findall('item')
     if not items:
@@ -284,7 +284,6 @@ def or_element(primary: Optional[Element], fallback: Optional[Element]) -> Optio
     return None
 
 
-
 async def load_starter_data():
     podcast_urls = [
         'https://talkpython.fm/rss',
@@ -293,7 +292,7 @@ async def load_starter_data():
         'https://feeds.megaphone.fm/STU4418364045',
         'https://feeds.megaphone.fm/replyall',
         'https://atp.fm/episodes?format=rss',
-        #'',
+        # '',
     ]
 
     for url in podcast_urls:

@@ -12,7 +12,7 @@ class Sentence:
         self.time = time
 
 
-transcript_cache: dict[(str, int) : list[Sentence]] = {}
+transcript_cache: dict[(str, int): list[Sentence]] = {}
 
 
 async def transcript_text_for_episode(podcast_id: str, episode_number: int) -> list[Sentence]:

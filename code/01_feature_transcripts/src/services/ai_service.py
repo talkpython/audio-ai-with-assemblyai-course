@@ -1,7 +1,6 @@
 import asyncio
 import concurrent.futures
 import datetime
-import json
 from typing import Optional, Any
 
 import assemblyai
