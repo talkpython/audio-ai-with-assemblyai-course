@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 
 from db import mongo_setup
 from infrastructure import app_secrets
-from services import web_sync_service, background_service
+from services import web_sync_service, background_service, search_service
 
 development_mode: bool = True
 
@@ -27,7 +27,8 @@ async def app_lifespan(_):
     # noinspection PyAsyncCall
     asyncio.create_task(background_service.worker_function())
 
-    # TODO: Register search task
+    # noinspection PyAsyncCall
+    asyncio.create_task(search_service.search_search_index_task())
 
     yield
 

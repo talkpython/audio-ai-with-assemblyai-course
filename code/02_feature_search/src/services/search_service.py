@@ -13,8 +13,8 @@ from db.search_record import SearchRecord, SearchRecordLite
 from db.transcripts import EpisodeTranscript
 from services import podcast_service, ai_service
 
-indexing_startup = 30  # delay 30s
-indexing_frequency = 60 * 5  # every 5 minutes
+indexing_startup = 5  # delay 30s
+indexing_frequency = 60  # 60 * 5  # every 5 minutes
 
 nlp: Optional[Language] = None
 
@@ -154,8 +154,8 @@ async def build_index_for_podcast(podcast: Podcast):
         if transcript:
             transcript_text = ' '.join(w.text for w in transcript.words)
             episode_text += (
-                    ' ' + (transcript.summary_bullets or '') + ' ' + (
-                    transcript.summary_tldr or '') + ' ' + transcript_text
+                    ' ' + (transcript.summary_bullets or '') + ' ' +
+                    (transcript.summary_tldr or '') + ' ' + transcript_text
             )
 
         keywords: set[str] = build_keywords(episode_text.lower())
@@ -189,7 +189,7 @@ async def has_changed_contents(
     if episode and episode.published_date > changed_date:
         changed_date = episode.published_date
 
-    transcript = None  # Get transcript lite from ai service
+    transcript = await ai_service.transcript_lite_for_episode(podcast_id, episode_number)
     if transcript and transcript.updated_date > changed_date:
         changed_date = transcript.updated_date
 
