@@ -150,7 +150,7 @@ pymongo==4.6.1
     # via motor
 pytest==8.0.0
     # via -r requirements.piptools
-python-multipart==0.0.7
+python-multipart==0.0.9
     # via -r requirements.piptools
 requests==2.31.0
     # via
@@ -186,7 +186,7 @@ thinc==8.2.3
     # via spacy
 toml==0.10.2
     # via beanie
-tqdm==4.66.1
+tqdm==4.66.2
     # via spacy
 typer==0.9.0
     # via
@@ -201,9 +201,7 @@ typing-extensions==4.9.0
     #   typer
 urllib3==2.2.0
     # via requests
-uvicorn==0.27.0.post1
-    # via -r requirements.piptools
-uvloop==0.19.0
+uvicorn==0.27.1
     # via -r requirements.piptools
 w3lib==2.1.2
     # via parsel

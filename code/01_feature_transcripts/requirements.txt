@@ -203,8 +203,6 @@ urllib3==2.2.0
     # via requests
 uvicorn==0.27.1
     # via -r requirements.piptools
-uvloop==0.19.0
-    # via -r requirements.piptools
 w3lib==2.1.2
     # via parsel
 wasabi==1.1.2

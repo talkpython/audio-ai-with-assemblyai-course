@@ -13,7 +13,7 @@ passlib
 python-multipart
 spacy
 uvicorn
-uvloop
+# uvloop # Uncomment on mac/linux, but doesn't support Windows, perf boost only.
 
 # dev dependencies - we can move them later if needed
 pytest
