@@ -104,7 +104,7 @@ async def worker_transcribe_episode(podcast_id: str, episode_number: int) -> Epi
     await db_transcript.save()
 
     dt = datetime.datetime.now() - t0
-    print(f'Processing complete for transcription, dt = {dt.total_seconds():,.2} sec.')
+    print(f'Processing complete for transcription, dt = {dt.total_seconds():,.0f} sec.')
 
     return db_transcript
 
