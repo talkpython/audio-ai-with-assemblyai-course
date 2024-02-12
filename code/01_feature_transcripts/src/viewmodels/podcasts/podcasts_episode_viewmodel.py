@@ -65,15 +65,10 @@ class PodcastEpisodeViewModel(ViewModelBase):
         if not self.ai_summary:
             return ''
 
-        tldr_statement = 'TLDR'
-        task_restatement = 'Here is a 10 bullet'
-
         html = ''
         html += '<h2>TLDR;</h2>\n\n'
         elements = self.ai_summary.summary_tldr.split('\n')
         for e in elements:
-            if e.strip().startswith(tldr_statement):
-                continue
             if not e.strip():
                 continue
 
@@ -83,11 +78,10 @@ class PodcastEpisodeViewModel(ViewModelBase):
         html += '<ul>\n'
         elements = self.ai_summary.summary_bullets.split('\n')
         for e in elements:
-            if e.startswith(task_restatement):
-                continue
-
-            text = e.lstrip('-').strip()
+            text = e.lstrip('-').lstrip('- ').strip()
             if text:
+                if text[-1] not in {'.', '?', '!'}:
+                    text += '.'
                 html += f'<li>{text}</li>\n'
 
         html += '</ul>\n\n'
