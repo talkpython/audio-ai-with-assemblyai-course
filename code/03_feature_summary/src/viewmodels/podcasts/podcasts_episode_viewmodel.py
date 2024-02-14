@@ -66,7 +66,7 @@ class PodcastEpisodeViewModel(ViewModelBase):
             return ''
 
         html = ''
-        html += '<h2>TLDR;</h2>\n\n'
+        html += '<h2>TL;DR</h2>\n\n'
         elements = self.ai_summary.summary_tldr.split('\n')
         for e in elements:
             if not e.strip():
