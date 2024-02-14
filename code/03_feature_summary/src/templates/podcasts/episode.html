@@ -60,7 +60,11 @@
                 >View transcript</a>
 
                 <!-- ############ CREATE SUMMARY SECTION ############ -->
-                <a class="button-indigo rounded-button" href="#summarize" tal:condition="not summary_url"
+                <a class="button-indigo rounded-button"
+                   hx-get="/ai/start/summarize/${podcast.id}/episode/${episode.episode_number}"
+                   hx-trigger="click"
+                   href="#summarize"
+                         tal:condition="not summary_url"
                 >Create summary</a>
 
                 <!-- ############ CHAT Q&A SECTION ############ -->
