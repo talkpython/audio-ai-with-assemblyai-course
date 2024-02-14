@@ -2,6 +2,6 @@
 <project version="4">
   <component name="RuffConfigService">
     <option name="globalRuffLspExecutablePath" value="$USER_HOME$/global_venv/bin/ruff" />
-    <option name="projectRuffExecutablePath" value="$PROJECT_DIR$/venv/bin/ruff" />
+    <option name="projectRuffLspExecutablePath" value="$PROJECT_DIR$/venv/bin/ruff" />
   </component>
 </project>
