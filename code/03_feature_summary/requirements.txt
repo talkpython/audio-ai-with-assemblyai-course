@@ -78,7 +78,7 @@ h11==0.14.0
     #   uvicorn
 html2text==2020.1.16
     # via -r requirements.piptools
-httpcore==1.0.2
+httpcore==1.0.3
     # via httpx
 httpx==0.26.0
     # via
