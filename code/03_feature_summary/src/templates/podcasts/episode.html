@@ -47,18 +47,23 @@
             </div>
             <br>
             <div class="episode-actions" hx-target="this" hx-swap="outerHTML">
+
+                <!-- ############ CREATE/VIEW TRANSCRIPT SECTION ############ -->
                 <a class="button-indigo rounded-button"
                    hx-get="/ai/start/transcribe/${podcast.id}/episode/${episode.episode_number}"
                    hx-trigger="click"
                    href="#transcribe"
-                        tal:condition="not transcript_url"
+                         tal:condition="not transcript_url"
                 >Create transcript</a>
 
                 <a class="button-green rounded-button" href="${transcript_url}" tal:condition="transcript_url"
                 >View transcript</a>
 
+                <!-- ############ CREATE SUMMARY SECTION ############ -->
                 <a class="button-indigo rounded-button" href="#summarize" tal:condition="not summary_url"
                 >Create summary</a>
+
+                <!-- ############ CHAT Q&A SECTION ############ -->
                 <a class="button-indigo rounded-button" href="#chat"
                 >Enable AI Q&A <i class="fa-solid fa-robot"></i></a><br>
             </div>
