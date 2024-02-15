@@ -4,6 +4,7 @@ import datetime
 from typing import Optional, Any
 
 import assemblyai
+import assemblyai.lemur
 from assemblyai import TranscriptStatus
 
 from db.transcripts import (
@@ -110,8 +111,21 @@ async def worker_transcribe_episode(podcast_id: str, episode_number: int) -> Epi
 
 
 async def worker_summarize_episode(podcast_id: str, episode_number: int):
-    # TODO: Actually summarize episode at AssemblyAI
-    return None
+    t0 = datetime.datetime.now()
+
+    # Step 1: Do we already have all we need?
+    # No TX? Make one
+
+    # Step 2: Get the podcast and episode
+
+    # Step 3: Use that info to create the 2 prompts
+
+    # Step 4: Create transcript text and send it to LeMUR.
+    # First for TL;DR, second for key moments
+    # BTW, Lemur.task() is blocking...
+
+    dt = datetime.datetime.now() - t0
+    print(f'Processing complete for transcription, dt = {dt.total_seconds():,.0f} sec.')
 
 
 async def run_future(future: concurrent.futures.Future) -> Any:
