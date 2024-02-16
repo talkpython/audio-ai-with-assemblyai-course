@@ -1,0 +1,24 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+        <div class="mt-10">
+            ${render_partial("podcasts/partials/discover_podcasts.html", viewmodel=viewmodel)}
+        </div>
+
+        <div class="mx-auto max-w-lg">
+            <div class="mt-10">
+                <h3 class="text-sm font-medium text-gray-500">More podcasts</h3>
+                <ul role="list" class="mt-4 divide-y divide-gray-200 border-b border-gray-200">
+                    <li class="flex items-center justify-between space-x-3 py-4" tal:repeat="pod additional_podcasts">
+                        ${render_partial('podcasts/partials/podcast_in_list.html',
+                        viewmodel=viewmodel, followable=True,
+                        category=pod.category,
+                        poster_image=pod.image,
+                        title=pod.title,
+                        podcast_id=pod.id)}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

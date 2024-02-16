@@ -1,0 +1,37 @@
+<!DOCTYPE html metal:define-macro="layout">
+<html lang="en" class="h-full bg-white">
+<head>
+    <meta charset="UTF-8">
+    <title>X-ray Podcasts - Deeper View and Summaries of Your Podcasts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/static/release/css/site.css?v=${cache_id('/static/release/css/site.css')}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:100,200,300,400,500,600,700,900" rel="stylesheet"/>
+
+</head>
+<body class="h-full bg-gray-600">
+
+<div class="bg-slate-50">
+    ${render_partial('shared/partials/_nav.html', viewmodel=viewmodel)}
+
+    <div class="page-content bg-slate-50">
+        <div class="page-content-container flex-grow">
+            <div metal:define-slot="content">No content</div>
+        </div>
+    </div>
+
+</div>
+${render_partial('shared/partials/footer.html')}
+
+<link href="/static/fontawesome/css/all.min.css" rel="stylesheet"/>
+<script src="/static/release/js/htmx.min.js?v=${cache_id('/static/release/js/htmx.min.js')}"></script>
+<script src="/static/js/site.js?v=${cache_id('/static/js/site.js')}"></script>
+
+<script tal:condition="dev_mode"
+        src="/static/js/server-hot-reload.js?v=${cache_id('/static/js/server-hot-reload.js')}">
+</script>
+
+</body>
+</html>
+

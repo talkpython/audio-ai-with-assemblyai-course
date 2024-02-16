@@ -1,0 +1,50 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+
+        <div class="mx-auto max-w-fit whitespace-nowrap">
+
+            <div class="inline-block align-middle">
+                <a href="/podcasts/details/${podcast.id}"
+               class="inline-block align-middle"
+            ><img
+                    style="width: 250px; border-radius: 10px;"
+                    class="border-solid border inline-block align-middle"
+                    src="${podcast.image}" alt=""></a>
+            </div>
+
+
+            <div class="inline-block pl-2 align-middle">
+                <h1>Transcripts for ${podcast.title}</h1>
+                <div class="text-gray-700">${podcast.subtitle}</div>
+                <h2 class="uppercase pt-4"
+                ><a href="/podcasts/details/${podcast.id}/episode/${episode.episode_number}"
+                >Episode: ${episode.title}</a></h2>
+
+            </div>
+
+            <div class="clear-both text-xs">&nbsp;</div>
+        </div>
+
+        <div class="bg-green-100 mt-1 p-2 border-solid border-green-600 border rounded-2xl transcript-section">
+
+            <div>
+                <audio id="audio"
+                       src="${episode.enclosure_url}" controls
+                       class="mx-auto mb-1.5"
+                       style="width: 90%"></audio>
+            </div>
+
+            <div class="transcript-sentence p-0.5 cursor-pointer hover:bg-green-200 border-r-2"
+                 data-time="${s.time}"
+                 tal:repeat="s transcript_sentences">
+                <span class="font-bold w-16 min-w-max inline-block" data-time="${s.time}"
+                      title="Click to play at this time."
+                >${to_time_text(s.time)}</span> ${s.text}<br>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

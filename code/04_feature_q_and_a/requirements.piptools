@@ -1,0 +1,20 @@
+argon2-cffi
+assemblyai
+beanie
+chameleon-partials
+cryptography
+fastapi
+fastapi-chameleon
+feedparser
+html2text
+httpx
+parsel
+passlib
+python-multipart
+spacy
+uvicorn
+# uvloop # Uncomment on mac/linux, but doesn't support Windows, perf boost only.
+
+# dev dependencies - we can move them later if needed
+pytest
+ruff

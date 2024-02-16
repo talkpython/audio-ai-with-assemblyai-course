@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Watch with: npm run watch */
+/* Build with: npm run build */
+
+
+@layer base {
+    h1, h2, h3, h4 {
+        @apply mb-2.5;
+    }
+
+    h1 {
+        @apply text-3xl font-bold;
+    }
+
+    h2 {
+        @apply text-2xl font-bold;
+    }
+
+    h3 {
+        @apply text-lg font-bold;
+    }
+
+    h4 {
+        @apply text-lg font-bold;
+    }
+
+    .page-content a,
+    .page-content a:visited {
+        @apply text-blue-600;
+    }
+
+    .page-content a:hover {
+        @apply text-blue-500 underline;
+    }
+
+
+}
+
+.rounded-button {
+    @apply ml-4 flex-shrink-0 rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+.button-indigo {
+    @apply text-white focus-visible:outline-indigo-600 hover:bg-indigo-500 bg-indigo-600;
+}
+
+
+a.button-indigo, a:visited.button-indigo, a:hover.button-indigo {
+    @apply text-white;
+}
+
+.button-green {
+    @apply text-white focus-visible:outline-green-600 hover:bg-green-500 bg-green-600;
+}
+
+a.button-green, a.button-green:visited, a.button-green:hover {
+    @apply text-white;
+}
+
+a.green-link, a.green-link:visited, a.green-link:hover {
+    @apply text-green-800;
+}
+
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+ul {
+    @apply list-disc list-outside ml-4
+}
+
+ol {
+    @apply list-decimal list-outside ml-4
+}
+
+.form-text-field {
+    @apply block w-full rounded-md border-0
+    py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
+    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
+    sm:text-sm sm:leading-6;
+}
+
+.error-text {
+    @apply text-red-500 font-bold;
+}
+
+pre.not-code {
+    white-space: pre-wrap;
+    font-family: 'Inter', sans-serif;
+}
+
+.ai_summary li {
+    @apply my-1;
+}
+
+.page-content a.text-black,
+.page-content a.text-black:visited {
+    color: #000;
+}

@@ -1,0 +1,45 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+
+        <div class="mx-auto max-w-lg mt-10">
+
+            <div>
+                <div class="text-center mt-5">
+                    <i class="fa-brands fa-searchengin text-4xl"></i>
+                    <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">Search Deep Within Podcasts</h2>
+                    <p class="mt-5 text-sm text-gray-500">
+                        We use AssemblyAI to generate transcripts, summaries, and more then surface all of that
+                        information through a lightening quick search. Go ahead and see what you can find.
+                    </p>
+                </div>
+            </div>
+
+            <!--suppress HtmlFormInputWithoutLabel -->
+            <input
+                    id="search_text"
+                    name="search_text"
+                    autofocus
+                    class="block mt-8 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Search podcasts ..."
+                    type="text"
+                    value="${ search_text or '' }"
+                    hx-get="/search/hx-search"
+                    hx-target="#search-results"
+                    hx-trigger="keyup changed delay:250ms"
+            >
+        </div>
+
+        <div class="mx-auto max-w-xl mt-10">
+            <div class="search-results mt-10" id="search-results">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="pb-20">&nbsp;</div>
+
+    </div>
+</div>
