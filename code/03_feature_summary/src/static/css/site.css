@@ -101,3 +101,19 @@ pre.not-code {
 .page-content a.text-black:visited {
     color: #000;
 }
+
+#spinner {
+    display: none;
+}
+
+.htmx-request #spinner {
+    display: inline;
+}
+
+.htmx-request #chat-results {
+    display: none;
+}
+
+.htmx-request#spinner {
+    display: inline;
+}
