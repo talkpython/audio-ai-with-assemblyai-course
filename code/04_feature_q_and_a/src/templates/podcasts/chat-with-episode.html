@@ -1,0 +1,72 @@
+<div metal:use-macro="load: ../shared/_layout.html">
+    <div metal:fill-slot="content" class="m-4">
+
+
+        <div class="mx-auto max-w-lg mt-10">
+
+            <div>
+                <div class="text-center mt-5">
+                    <i class="fa-solid fa-circle-question text-4xl"></i>
+                    <h2 class="mt-2 text-base font-semibold leading-6 text-gray-900">AI Chat with Episode</h2>
+                    <p class="mt-5 text-sm text-gray-500">
+                        What do you want to know about <a href="/podcasts/details/${podcast.id}"
+                                           class="text-black font-bold">${podcast.title}</a>
+                        and the episode <a href="/podcasts/details/${podcast.id}/episode/${episode.episode_number}"
+                                           class="text-black font-bold">${episode.title}</a>?
+                    </p>
+                </div>
+            </div>
+
+
+            <form hx-post="/podcasts/hx-question/${podcast.id}/episode/${episode.episode_number}"
+                  hx-target="#chat-results"
+                  hx-indicator="#spinner">
+                <!--suppress HtmlFormInputWithoutLabel -->
+                <textarea
+                        id="question"
+                        autofocus
+                        rows="3"
+                        name="question"
+                        class="block mt-8 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Ask a question of this episode ..."
+                        value="${ question or '' }"></textarea>
+                <script>
+                    function deleteOldAnswer() {
+                        //console.log("Deleting old answer!");
+                        let answer = document.getElementById('answer');
+                        if (answer) {
+                            // console.log("found answer, removing...");
+                            answer.remove();
+                        }
+                        //console.log("Deleted!");
+                    }
+
+                    document.body.addEventListener('htmx:configRequest', function (evt) {
+                        deleteOldAnswer();
+                    });
+                </script>
+                <button type="submit" class="button-green rounded-button mt-2 mb-2 block float-right"
+                        tal:condition="user"
+
+                ><i class="fa-solid fa-robot"></i> Ask a question
+                </button>
+
+                <div class="clear-both"></div>
+            </form>
+        </div>
+
+        <div class="mx-auto max-w-xl mt-1">
+            <div class="text-center">
+                <img id="spinner" class="htmx-indicator"
+                     src="/static/img/dual-ball-busy-v2.gif" alt=""/>
+            </div>
+
+            <div class="mt-0" id="chat-results">
+            </div>
+
+        </div>
+
+        <div class="pb-20">&nbsp;</div>
+
+    </div>
+</div>
