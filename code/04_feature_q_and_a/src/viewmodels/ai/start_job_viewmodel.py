@@ -27,7 +27,8 @@ class StartJobViewModel(ViewModelBase):
                 self.job_name = 'Summarizing'
                 self.job_action_text = 'View summary'
             case JobActions.chat:
-                raise Exception('Chat action not yet supported.')
+                self.job_name = 'Preparing chat'
+                self.job_action_text = 'Start chatting'
             case _:
                 raise Exception(f'Unsupported action type {action}')
 
