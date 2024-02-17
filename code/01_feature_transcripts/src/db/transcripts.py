@@ -44,6 +44,10 @@ class EpisodeTranscript(beanie.Document):
             ),
         ]
 
+    @property
+    def transcript_string(self) -> str:
+        return ' '.join([w.text for w in self.words])
+
 
 class EpisodeTranscriptProjection(pydantic.BaseModel):
     created_date: datetime.datetime = pydantic.Field(default_factory=datetime.datetime.now)

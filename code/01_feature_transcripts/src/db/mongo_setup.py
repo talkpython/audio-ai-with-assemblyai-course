@@ -10,12 +10,12 @@ development_mode: bool = True
 
 
 async def init_connection(
-        database: str,
-        server: Optional[str] = 'localhost',
-        port: int = 27017,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
-        use_ssl: bool = False,
+    database: str,
+    server: Optional[str] = 'localhost',
+    port: int = 27017,
+    username: Optional[str] = None,
+    password: Optional[str] = None,
+    use_ssl: bool = False,
 ):
     server = server or 'localhost'
     port = port or 27017
@@ -32,13 +32,13 @@ async def init_connection(
 
 
 async def _motor_init(
-        database: str,
-        password: Optional[str],
-        port: int,
-        server: str,
-        use_ssl: bool,
-        username: Optional[str],
-        models_classes,
+    database: str,
+    password: Optional[str],
+    port: int,
+    server: str,
+    use_ssl: bool,
+    username: Optional[str],
+    models_classes,
 ):
     ensure_server_is_accessible(server, port)
     conn_string = create_connection_string(password, port, server, use_ssl, username)
@@ -51,7 +51,7 @@ async def _motor_init(
 
     # Init beanie with the Product document class
     await beanie.init_beanie(database=client[database], document_models=models_classes)
-    print(f'MongoDB + Beanie initialization done for db {database}')
+    print(f'Init done for db {database}')
 
 
 def create_connection_string(password, port, server, use_ssl, username):

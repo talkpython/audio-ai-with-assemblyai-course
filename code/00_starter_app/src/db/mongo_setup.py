@@ -51,7 +51,7 @@ async def _motor_init(
 
     # Init beanie with the Product document class
     await beanie.init_beanie(database=client[database], document_models=models_classes)
-    print(f'MongoDB + Beanie initialization done for db {database}')
+    print(f'Init done for db {database}')
 
 
 def create_connection_string(password, port, server, use_ssl, username):

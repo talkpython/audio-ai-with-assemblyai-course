@@ -35,7 +35,10 @@ class CheckJobViewModel(ViewModelBase):
                 self.completed_item_name = 'summary'
                 self.job_url = ''
             case JobActions.chat:
-                raise Exception('Chat action not yet supported.')
+                self.job_name = 'Preparing chat'
+                self.job_action_text = 'Start chatting'
+                self.completed_item_name = 'chat'
+                self.job_url = f'/podcasts/chat/{self.job.podcast_id}/episode/{self.job.episode_number}'
             case _:
                 return False
 

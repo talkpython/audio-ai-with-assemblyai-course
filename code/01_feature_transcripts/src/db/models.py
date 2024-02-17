@@ -1,3 +1,4 @@
+from db.chat import ChatQA
 from db.episode import Episode
 from db.job import BackgroundJob
 from db.podcast import Podcast
@@ -7,6 +8,7 @@ from db.transcripts import EpisodeTranscript
 from db.user import User
 
 all_models = [
+    ChatQA,
     Episode,
     Podcast,
     User,
