@@ -107,7 +107,7 @@ async def worker_function():
                 case JobActions.transcribe:
                     await ai_service.worker_transcribe_episode(job.podcast_id, job.episode_number)
                 case JobActions.chat:
-                    raise Exception('Chat not implemented yet.')
+                    await ai_service.worker_enable_chat_episode(job.podcast_id, job.episode_number)
                 case _:
                     raise Exception(f'What am I supposed to do with {job.action}?')
 

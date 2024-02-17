@@ -55,6 +55,11 @@ async def worker_summarize_episode(podcast_id: str, episode_number: int):
     return None
 
 
+async def worker_enable_chat_episode(podcast_id: str, episode_number: int):
+    # TODO: Actually prepare chat for the episode at AssemblyAI
+    return None
+
+
 async def run_future(future: concurrent.futures.Future) -> Any:
     while future.running():
         await asyncio.sleep(0.05)

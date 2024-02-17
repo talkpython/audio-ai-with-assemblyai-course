@@ -13,7 +13,6 @@ passlib
 python-multipart
 spacy
 uvicorn
-uvloop
 
 # dev dependencies - we can move them later if needed
 pytest
