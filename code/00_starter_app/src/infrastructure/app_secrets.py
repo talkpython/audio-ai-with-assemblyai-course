@@ -16,7 +16,12 @@ def init():
 
     settings = Path(__file__).parent.parent / 'settings.json'
     if not settings.exists():
-        raise Exception('Settings file `settings.json` not found, please copy and fill out settings_template.json')
+        assembly_ai_key = None
+        mongo_host = 'localhost'
+        mongo_port = 27017
+        print('WARNING: Settings file `settings.json` not found, '
+              'please copy settings_template.json to settings.json and fill out ')
+        return
 
     data = json.loads(settings.read_text())
     assembly_ai_key = data['assemblyai_key']
