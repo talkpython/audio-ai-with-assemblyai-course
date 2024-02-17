@@ -1,3 +1,5 @@
+import time
+
 import fastapi
 import fastapi_chameleon
 from starlette import status
@@ -5,7 +7,8 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from infrastructure import webutils
-from services import web_sync_service, podcast_service, user_service, search_service
+from services import web_sync_service, podcast_service, user_service, search_service, ai_service
+from viewmodels.podcasts.episode_chat_viewmodel import EpisodeChatViewModel
 from viewmodels.podcasts.follow_podcast_viewmodel import FollowPodcastViewModel
 from viewmodels.podcasts.podcasts_details_viewmodel import PodcastDetailsViewModel
 from viewmodels.podcasts.podcasts_episode_viewmodel import PodcastEpisodeViewModel
@@ -141,4 +144,26 @@ async def transcript(request: Request, podcast_id: str, episode_number: int):
 async def episodes_in_podcast(request: Request, podcast_id: str):
     vm = PodcastDetailsViewModel(request, podcast_id)
     await vm.load_data()
+    return vm.to_dict()
+
+
+@router.get('/podcasts/chat/{podcast_id}/episode/{episode_number}')
+@fastapi_chameleon.template('podcasts/chat-with-episode.html')
+async def chat_with_episode(request: Request, podcast_id: str, episode_number: int):
+    vm = EpisodeChatViewModel(request, podcast_id, episode_number)
+    await vm.load_data()
+    return vm.to_dict()
+
+
+@router.post('/podcasts/hx-question/{podcast_id}/episode/{episode_number}')
+@fastapi_chameleon.template('podcasts/partials/chat-response.html')
+async def chat_response(request: Request, podcast_id: str, episode_number: int):
+    vm = EpisodeChatViewModel(request, podcast_id, episode_number)
+    await vm.load_data()
+
+    if vm.error:
+        return vm.to_dict()
+
+    chat = await ai_service.ask_chat(podcast_id, episode_number, vm.user.email, vm.question)
+    vm.set_answer(chat.answer)
     return vm.to_dict()

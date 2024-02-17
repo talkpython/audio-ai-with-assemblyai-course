@@ -68,8 +68,17 @@
                 >Create summary</a>
 
                 <!-- ############ CHAT Q&A SECTION ############ -->
-                <a class="button-indigo rounded-button" href="#chat"
-                >Enable AI Q&A <i class="fa-solid fa-robot"></i></a><br>
+                <a class="button-indigo rounded-button"
+                   href="#chat"
+                   hx-get="/ai/start/chat/${podcast.id}/episode/${episode.episode_number}"
+                   hx-trigger="click"
+                         tal:condition="not transcript_url"
+                >Enable AI Q&A <i class="fa-solid fa-robot"></i></a>
+
+                <a class="button-green rounded-button"
+                   href="/podcasts/chat/${podcast.id}/episode/${episode.episode_number}"
+                         tal:condition="transcript_url"
+                >Chat with episode</a><br>
             </div>
             <br>
         </div>

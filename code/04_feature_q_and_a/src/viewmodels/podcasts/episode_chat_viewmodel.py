@@ -10,7 +10,8 @@ from viewmodels.shared.viewmodel_base import ViewModelBase
 
 regexs = [
     re.compile(r"^Based on the transcript provided, "),
-    re.compile(r"^Based on the transcript summary provided, ")
+    re.compile(r"^Based on the transcripts provided, "),
+    re.compile(r"^Based on the transcript summary provided, "),
 ]
 
 
@@ -28,12 +29,12 @@ class EpisodeChatViewModel(ViewModelBase):
         if self.user_id and not self.user:
             await self.load_user()
 
+        self.podcast = await podcast_service.podcast_by_id(self.podcast_id)
+        self.episode = await podcast_service.episode_by_number(self.podcast_id, self.episode_number)
+
         if not self.user:
             self.error = "No user, cannot chat without having an account."
             return
-
-        self.podcast = await podcast_service.podcast_by_id(self.podcast_id)
-        self.episode = await podcast_service.episode_by_number(self.podcast_id, self.episode_number)
 
         form = await self.request.form()
         if form:
@@ -51,5 +52,8 @@ class EpisodeChatViewModel(ViewModelBase):
 
             if not self.answer[0].isupper():
                 self.answer = self.answer[0].upper() + self.answer[1:]
+
+            # while '\n\n' in self.answer:
+            #     self.answer = self.answer.replace('\n\n', '\n')
 
             self.answer = self.answer.replace("\n", "<br>\n")

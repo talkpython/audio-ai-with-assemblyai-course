@@ -8,6 +8,7 @@ import assemblyai
 import assemblyai.lemur
 from assemblyai import TranscriptStatus, LemurTaskResponse, LemurModel
 
+from db.chat import ChatQA
 from db.transcripts import (
     EpisodeTranscript,
     EpisodeTranscriptWords,
@@ -194,8 +195,70 @@ async def worker_summarize_episode(podcast_id: str, episode_number: int):
 
 
 async def worker_enable_chat_episode(podcast_id: str, episode_number: int):
-    # TODO: Actually prepare chat for the episode at AssemblyAI
-    return None
+    print(f'Preparing episode for AI chat {podcast_id} and {episode_number}.')
+    return await worker_transcribe_episode(podcast_id, episode_number)
+
+
+async def ask_chat(podcast_id: str, episode_number: int, email: str, question: str) -> ChatQA:
+    db_transcript = await full_transcript_for_episode(podcast_id, episode_number)
+    if not db_transcript:
+        raise Exception("Transcript required for chat.")
+
+    podcast = await podcast_service.podcast_by_id(podcast_id)
+    prompt = (f'You are an expert journalist. I am going to give you a transcript for the podcast "{podcast.title}". '
+              'I want your answer to include sources and fragments from the transcript to support your response. '
+              'I do not want you to make anything up. It\'s OK to say "I don\'t know." '
+              ''
+              f'My question about this podcast episode is:'
+              '' +
+              question)
+
+    chat = await new_chat(podcast_id, episode_number, prompt, question, email)
+    if chat.answer:
+        return chat
+
+    lemur_client = assemblyai.lemur.Lemur()
+
+    print(f'Asking LeMUR about {question}')
+    resp: LemurTaskResponse = lemur_client.task(
+        prompt,
+        final_model=LemurModel.basic,
+        temperature=0.25,
+        input_text=db_transcript.transcript_string
+    )
+
+    chat.answer = resp.response.strip()
+    await chat.save()
+
+    return chat
+
+
+async def new_chat(podcast_id: str, episode_number: int, prompt: str, question: str, email: str) -> ChatQA:
+    their_chat = await ChatQA.find_one(ChatQA.podcast_id == podcast_id,
+                                       ChatQA.episode_number == episode_number,
+                                       ChatQA.prompt == prompt,
+                                       ChatQA.question == question,
+                                       ChatQA.email == email)
+
+    if their_chat is not None:
+        return their_chat
+
+    chat = ChatQA(podcast_id=podcast_id,
+                  episode_number=episode_number,
+                  prompt=prompt,
+                  question=question,
+                  email=email)
+
+    existing_chat = await ChatQA.find_one(ChatQA.podcast_id == podcast_id,
+                                          ChatQA.episode_number == episode_number,
+                                          ChatQA.prompt == prompt,
+                                          ChatQA.question == question)
+
+    if existing_chat is not None and existing_chat.answer:
+        chat.answer = existing_chat.answer
+
+    await chat.save()
+    return chat
 
 
 async def run_future(future: concurrent.futures.Future) -> Any:
