@@ -19,18 +19,32 @@ class StartJobViewModel(ViewModelBase):
         self.job_action_text: Optional[str] = None
         self.completed_item_name: Optional[str] = None
 
-        match self.action:
-            case JobActions.transcribe:
-                self.job_name = 'Transcribing'
-                self.job_action_text = 'View transcript'
-            case JobActions.summarize:
-                self.job_name = 'Summarizing'
-                self.job_action_text = 'View summary'
-            case JobActions.chat:
-                self.job_name = 'Preparing chat'
-                self.job_action_text = 'Start chatting'
-            case _:
-                raise Exception(f'Unsupported action type {action}')
+        # match self.action:
+        #     case JobActions.transcribe:
+        #         self.job_name = 'Transcribing'
+        #         self.job_action_text = 'View transcript'
+        #     case JobActions.summarize:
+        #         self.job_name = 'Summarizing'
+        #         self.job_action_text = 'View summary'
+        #     case JobActions.chat:
+        #         self.job_name = 'Preparing chat'
+        #         self.job_action_text = 'Start chatting'
+        #     case _:
+        #         raise Exception(f'Unsupported action type {action}')
+
+        # Here is a Python 3.9 compatible version. If you are using 3.10 or later,
+        # please prefer the above.
+        if self.action == JobActions.transcribe:
+            self.job_name = 'Transcribing'
+            self.job_action_text = 'View transcript'
+        elif self.action == JobActions.summarize:
+            self.job_name = 'Summarizing'
+            self.job_action_text = 'View summary'
+        elif self.action == JobActions.chat:
+            self.job_name = 'Preparing chat'
+            self.job_action_text = 'Start chatting'
+        else:
+            raise Exception(f'Unsupported action type {action}')
 
     async def load(self) -> bool:
         pass
