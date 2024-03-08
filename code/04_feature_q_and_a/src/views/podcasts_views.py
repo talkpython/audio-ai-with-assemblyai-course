@@ -1,11 +1,10 @@
-import time
-
 import fastapi
 import fastapi_chameleon
 from starlette import status
 from starlette.requests import Request
 from starlette.responses import Response
 
+from db.podcast import Podcast
 from infrastructure import webutils
 from services import web_sync_service, podcast_service, user_service, search_service, ai_service
 from viewmodels.podcasts.episode_chat_viewmodel import EpisodeChatViewModel
@@ -167,3 +166,16 @@ async def chat_response(request: Request, podcast_id: str, episode_number: int):
     chat = await ai_service.ask_chat(podcast_id, episode_number, vm.user.email, vm.question)
     vm.set_answer(chat.answer)
     return vm.to_dict()
+
+
+@router.get('/podcasts/refresh-podcast/{podcast_id}')
+async def refresh_podcast(podcast_id: str):
+    podcast = await podcast_service.podcast_by_id(podcast_id)
+    if podcast is None:
+        return fastapi.responses.HTMLResponse(content='No podcast with that ID', status_code=404)
+
+    rss_url = podcast.rss_url
+    await podcast_service.delete_podcast(podcast)
+
+    podcast: Podcast = await web_sync_service.podcast_from_url(rss_url)
+    return webutils.redirect_to(f'/podcasts/details/{podcast.id}')
