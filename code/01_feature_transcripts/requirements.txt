@@ -9,7 +9,7 @@ anyio==4.3.0
 argon2-cffi==23.1.0
 argon2-cffi-bindings==21.2.0
     # via argon2-cffi
-assemblyai==0.22.0
+assemblyai==0.23.0
 beanie==1.25.0
 blis==0.7.11
     # via thinc
@@ -99,7 +99,7 @@ numpy==1.26.4
     #   blis
     #   spacy
     #   thinc
-packaging==23.2
+packaging==24.0
     # via
     #   parsel
     #   pytest
@@ -130,13 +130,13 @@ pydantic-core==2.16.3
     # via pydantic
 pymongo==4.6.2
     # via motor
-pytest==8.0.2
+pytest==8.1.1
 python-multipart==0.0.9
 requests==2.31.0
     # via
     #   spacy
     #   weasel
-ruff==0.3.0
+ruff==0.3.2
 setuptools==69.1.1
     # via
     #   spacy
@@ -183,7 +183,7 @@ typing-extensions==4.10.0
     #   typer
 urllib3==2.2.1
     # via requests
-uvicorn==0.27.1
+uvicorn==0.28.0
 w3lib==2.1.2
     # via parsel
 wasabi==1.1.2
