@@ -12,6 +12,7 @@ parsel
 passlib
 python-multipart
 spacy
+strenum
 uvicorn
 
 # dev dependencies - we can move them later if needed
