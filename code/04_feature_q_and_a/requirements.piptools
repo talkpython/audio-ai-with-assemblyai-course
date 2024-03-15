@@ -12,6 +12,7 @@ parsel
 passlib
 python-multipart
 spacy
+StrEnum
 uvicorn
 # uvloop # Uncomment on mac/linux, but doesn't support Windows, perf boost only.
 
