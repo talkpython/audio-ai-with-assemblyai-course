@@ -1,13 +1,19 @@
 import datetime
-import enum
 from typing import Optional
 
 import beanie
 import pydantic
 import pymongo
 
+# Switching to package strenum because enum.StrEnum didn't appear
+# until Python 3.11. I don't want that high of a version requirement
+# for you all. :)
+#
+# from enum import StrEnum
+from strenum import StrEnum
 
-class JobStatus(enum.StrEnum):
+
+class JobStatus(StrEnum):
     awaiting = 'awaiting'
     processing = 'processing'
     unneeded = 'unneeded'
@@ -15,7 +21,7 @@ class JobStatus(enum.StrEnum):
     success = 'success'
 
 
-class JobActions(enum.StrEnum):
+class JobActions(StrEnum):
     transcribe = 'transcribe'
     summarize = 'summarize'
     chat = 'chat'
