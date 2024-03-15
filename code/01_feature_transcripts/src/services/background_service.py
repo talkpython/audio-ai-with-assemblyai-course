@@ -101,15 +101,26 @@ async def worker_function():
             print(f'Error getting podcast details for job: j={job.id}, p={job.podcast_id}, e={job.episode_number}: {x}')
 
         try:
-            match job.action:
-                case JobActions.summarize:
-                    await ai_service.worker_summarize_episode(job.podcast_id, job.episode_number)
-                case JobActions.transcribe:
-                    await ai_service.worker_transcribe_episode(job.podcast_id, job.episode_number)
-                case JobActions.chat:
-                    await ai_service.worker_enable_chat_episode(job.podcast_id, job.episode_number)
-                case _:
-                    raise Exception(f'What am I supposed to do with {job.action}?')
+            # match job.action:
+            #     case JobActions.summarize:
+            #         await ai_service.worker_summarize_episode(job.podcast_id, job.episode_number)
+            #     case JobActions.transcribe:
+            #         await ai_service.worker_transcribe_episode(job.podcast_id, job.episode_number)
+            #     case JobActions.chat:
+            #         await ai_service.worker_enable_chat_episode(job.podcast_id, job.episode_number)
+            #     case _:
+            #         raise Exception(f'What am I supposed to do with {job.action}?')
+
+            # Here is a Python 3.9 compatible version. If you are using 3.10 or later,
+            # please prefer the above.
+            if job.action == JobActions.summarize:
+                await ai_service.worker_summarize_episode(job.podcast_id, job.episode_number)
+            elif job.action == JobActions.transcribe:
+                await ai_service.worker_transcribe_episode(job.podcast_id, job.episode_number)
+            elif job.action == JobActions.chat:
+                await ai_service.worker_enable_chat_episode(job.podcast_id, job.episode_number)
+            else:
+                raise Exception(f'What am I supposed to do with {job.action}?')
 
             await complete_job(job.id, JobStatus.success)
         except Exception as x:
