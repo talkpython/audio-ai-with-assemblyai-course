@@ -1,10 +1,8 @@
-import asyncio
 from typing import Optional
 
 import bson
 import httpx
 from beanie.odm.operators.find.comparison import In
-
 from db.episode import Episode, EpisodeLightProjection
 from db.podcast import Podcast
 from db.podcast_image import PodcastImage
@@ -96,7 +94,7 @@ async def follow_podcast(podcast_id: str, user_id: bson.ObjectId):
         raise Exception(f'No podcast with ID {podcast_id}.')
 
     user = await user_service.find_user_by_id(user_id)
-    user.podcasts.extend(podcast.id)
+    user.podcasts.extend([podcast.id])
     await user.save()
 
 
@@ -159,4 +157,3 @@ async def save_image_for_podcast(podcast_id: str) -> Optional[bytes]:
     await image.save()
 
     return image.content
-
