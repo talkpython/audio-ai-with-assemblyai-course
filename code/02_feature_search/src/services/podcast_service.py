@@ -3,7 +3,6 @@ from typing import Optional
 import bson
 import httpx
 from beanie.odm.operators.find.comparison import In
-
 from db.episode import Episode, EpisodeLightProjection
 from db.podcast import Podcast
 from db.podcast_image import PodcastImage
@@ -64,7 +63,7 @@ async def latest_episode_for_podcast(podcast_id: str) -> Optional[Episode]:
 
 
 async def episodes_for_podcast_by_ids_light(
-        podcast: Podcast, episode_ids: list[bson.ObjectId]
+    podcast: Podcast, episode_ids: list[bson.ObjectId]
 ) -> list[EpisodeLightProjection]:
     return (
         await Episode.find(Episode.podcast_id == podcast.id, In(Episode.id, episode_ids))
@@ -75,7 +74,7 @@ async def episodes_for_podcast_by_ids_light(
 
 
 async def episodes_for_podcast_by_numbers_light(
-        podcast: Podcast, episode_numbers: list[int]
+    podcast: Podcast, episode_numbers: list[int]
 ) -> list[EpisodeLightProjection]:
     return (
         await Episode.find(Episode.podcast_id == podcast.id, In(Episode.episode_number, episode_numbers))
@@ -95,7 +94,7 @@ async def follow_podcast(podcast_id: str, user_id: bson.ObjectId):
         raise Exception(f'No podcast with ID {podcast_id}.')
 
     user = await user_service.find_user_by_id(user_id)
-    user.podcasts.extend(podcast.id)
+    user.podcasts.extend([podcast.id])
     await user.save()
 
 
