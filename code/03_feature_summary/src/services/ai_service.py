@@ -5,8 +5,8 @@ import re
 from typing import Optional, Any
 
 import assemblyai
-import assemblyai.lemur
-from assemblyai import TranscriptStatus, LemurTaskResponse, LemurModel
+import httpx
+from assemblyai import TranscriptStatus
 
 from db.transcripts import (
     EpisodeTranscript,
@@ -158,27 +158,11 @@ async def worker_summarize_episode(podcast_id: str, episode_number: int):
     # future = lemur_client.task_async(...)
     # resp = await run_future(future)
     #
-    lemur_client = assemblyai.lemur.Lemur()
-
     print('Summarizing with LeMUR, TL;DR mode.')
-    resp: LemurTaskResponse = lemur_client.task(
-        tldr_prompt,
-        final_model=LemurModel.basic,
-        max_output_size=2000,
-        temperature=0.25,
-        input_text=transcript
-    )
-    db_transcript.summary_tldr = resp.response.strip()
+    db_transcript.summary_tldr = await llm_task(tldr_prompt, transcript)
 
     print('Summarizing with LeMUR, key moments mode.')
-    resp: LemurTaskResponse = lemur_client.task(
-        moments_prompt,
-        final_model=LemurModel.basic,
-        max_output_size=2000,
-        temperature=0.25,
-        input_text=transcript
-    )
-    db_transcript.summary_bullets = resp.response.strip()
+    db_transcript.summary_bullets = await llm_task(moments_prompt, transcript)
 
     # Step 6: Remove LLM restatements at the start of the response:
     # Here is a 5 sentence summary of the key details from the transcript in the style of an ArsTechnica tech reporter:
@@ -196,6 +180,24 @@ async def worker_summarize_episode(podcast_id: str, episode_number: int):
 async def worker_enable_chat_episode(podcast_id: str, episode_number: int):
     # TODO: Actually prepare chat for the episode at AssemblyAI
     return None
+
+
+async def llm_task(prompt: str, input_text: str) -> str:
+    # LeMUR was retired by AssemblyAI in 2026, this is its replacement: LLM Gateway.
+    # https://www.assemblyai.com/docs/llm-gateway/migration-from-lemur
+    async with httpx.AsyncClient(timeout=300) as client:
+        resp = await client.post(
+            'https://llm-gateway.assemblyai.com/v1/chat/completions',
+            headers={'authorization': assemblyai.settings.api_key},
+            json={
+                'model': 'gemini-2.5-flash',
+                'max_tokens': 4000,
+                'temperature': 0.25,
+                'messages': [{'role': 'user', 'content': f'{prompt}\n\nTranscript:\n{input_text}'}],
+            },
+        )
+        resp.raise_for_status()
+        return resp.json()['choices'][0]['message']['content'].strip()
 
 
 async def run_future(future: concurrent.futures.Future) -> Any:
